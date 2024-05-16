@@ -1,10 +1,20 @@
-provider  "aws" {
-    region         = "us-east-1"
+resource "aws_instance" "example" {
+  ami                    = var.ami_id
+  instance_type          = var.instance_type
+  iam_instance_profile   = var.iam_instance_profile
+  key_name               = var.key_name
+
+  tags = merge({
+    Name = "example-instance"
+  }, var.tags)
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  user_data = <<-EOF
+              #!/bin/bash
+              echo "Hello, World!" > /var/www/html/index.html
+              EOF
 }
-resource "aws_instance" "Linux" {
-    ami            =  "ami-07caf09b362be10b8"
-    instance_type  =  "t2.micro"
-    tags = {
-      Name = "Check"
-    }
-}
+
