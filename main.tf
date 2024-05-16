@@ -4,6 +4,12 @@ resource "aws_instance" "example" {
   iam_instance_profile   = var.iam_instance_profile
   key_name               = var.key_name
 
+root_block_device {
+    volume_type = "gp2"  # General Purpose SSD (GP2)
+    volume_size = 8      # Size in GB
+    encrypted   = true   # Encrypt the root block device
+  }
+
   tags = merge({
     Name = "example-instance"
   }, var.tags)
