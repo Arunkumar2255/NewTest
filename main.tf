@@ -14,6 +14,10 @@ root_block_device {
     Name = "example-instance"
   }, var.tags)
 
+metadata_options {
+    http_tokens = "required"  # Require IMDSv2
+  }
+
   lifecycle {
     create_before_destroy = true
   }
