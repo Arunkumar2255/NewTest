@@ -3,6 +3,8 @@ resource "aws_instance" "example" {
   instance_type          = var.instance_type
   iam_instance_profile   = var.iam_instance_profile
   key_name               = var.key_name
+  disable_api_termination = true
+
 
 root_block_device {
     volume_type = "gp2"  # General Purpose SSD (GP2)
